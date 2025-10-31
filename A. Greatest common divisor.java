@@ -25,10 +25,15 @@ class GreatestCommonDivisor {
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int num1 = scanner.nextInt(), num2 = scanner.nextInt();
-        GreatestCommonDivisor result = new GreatestCommonDivisor();
-        System.out.print(result.answer(num1, num2));
+        try {
+            Scanner scanner = new Scanner(System.in);
+            int num1 = scanner.nextInt(), num2 = scanner.nextInt();
+            GreatestCommonDivisor result = new GreatestCommonDivisor();
+            System.out.print(result.answer(num1, num2));
+        } catch (Exception e) {
+            System.err.println("Application failed: " + e.getMessage());
+            System.exit(1);
+        }
 
     }
 }
