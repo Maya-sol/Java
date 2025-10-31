@@ -28,32 +28,46 @@ class MaxStack {
         return max.peek();
     }
 
+    void operations() {
+        try {
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+            PrintWriter printer = new PrintWriter(System.out);
+            int lines = Integer.parseInt(buffer.readLine());
+            String command;
+            int num;
+            
+            for (int i = 0; i < lines; i++) {
+                String[] request = buffer.readLine().split(" ");
+                command = request[0];
+                if (command.equals("push")) {
+                    num = Integer.parseInt(request[1]);
+                    this.push(num);
+                } else if (command.equals("pop")) {
+                    this.pop();
+                } else {
+                    printer.println(this.maximum());
+                }
+            }
+            
+            printer.flush();
+            printer.close();
+            buffer.close();
+            
+        }catch (Exception e) {
+            System.err.println("Application failed: " + e.getMessage());
+            System.exit(1);
+        }
+    }
 }
 
-
 public class Main {
-    public static void main(String[] args) throws IOException {
-        MaxStack stack = new MaxStack();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter pw = new PrintWriter(System.out);
-        int lines = Integer.parseInt(br.readLine());
-        String command;
-        int num;
-        for (int i = 0; i < lines; i++) {
-            String[] request = br.readLine().split(" ");
-            command = request[0];
-            if (command.equals("push")) {
-                num = Integer.parseInt(request[1]);
-                stack.push(num);
-            } else if (command.equals("pop")) {
-                stack.pop();
-            } else {
-                pw.println(stack.maximum());
-            }
+    public static void main(String[] args) {
+        try {
+            MaxStack stack = new MaxStack();
+            stack.operations();
+        } catch (Exception e) {
+            System.err.println("Application failed: " + e.getMessage());
+            System.exit(1);
         }
-        pw.flush();
-        pw.close();
-        br.close();
     }
-
 }
