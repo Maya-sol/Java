@@ -1,4 +1,5 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 class Node {
     int number;
@@ -18,8 +19,12 @@ class Tree {
         node = null;
     }
 
-    void insert(int data) {
-        node = insertWithRoot(node, data);
+    void read(Scanner scan) {
+        int num = scan.nextInt();
+        while (num != 0) {
+            node = insertWithRoot(node, num);
+            num = scan.nextInt();
+        }
     }
 
     Node insertWithRoot(Node root, int data) {
@@ -51,17 +56,17 @@ class Tree {
     }
 }
 
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Tree tree = new Tree();
-        int num = scanner.nextInt();
-        while (num != 0) {
-            tree.insert(num);
-            num = scanner.nextInt();
+        try {
+            Scanner scanner = new Scanner(System.in);
+            Tree tree = new Tree();
+            tree.read(scanner);
+            tree.print();
+        } catch (Exception e) {
+            System.err.println("Application failed: " + e.getMessage());
+            System.exit(1);
         }
-        tree.print();
-    }
 
+    }
 }
