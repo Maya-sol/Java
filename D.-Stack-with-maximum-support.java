@@ -28,15 +28,15 @@ class MaxStack {
         return max.peek();
     }
 
-    void operations() {
+    void ChooseStackOeration() {
         try {
             BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
             PrintWriter printer = new PrintWriter(System.out);
             int lines = Integer.parseInt(buffer.readLine());
             String command;
             int num;
-            
-            for (int i = 0; i < lines; i++) {
+
+            for (int i = 0; i < lines; ++i) {
                 String[] request = buffer.readLine().split(" ");
                 command = request[0];
                 if (command.equals("push")) {
@@ -48,12 +48,12 @@ class MaxStack {
                     printer.println(this.maximum());
                 }
             }
-            
+
             printer.flush();
             printer.close();
             buffer.close();
-            
-        }catch (Exception e) {
+
+        } catch (Exception e) {
             System.err.println("Application failed: " + e.getMessage());
             System.exit(1);
         }
@@ -64,7 +64,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             MaxStack stack = new MaxStack();
-            stack.operations();
+            stack.ChooseStackOeration();
         } catch (Exception e) {
             System.err.println("Application failed: " + e.getMessage());
             System.exit(1);
