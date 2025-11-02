@@ -60,30 +60,45 @@ class Point {
         }
         return false;
     }
+
+    int finalResult(int number, BufferedReader buffer, Point a, Point b) {
+        try {
+            int result = 0;
+            String[] parts;
+            for (int i = 0; i < number; i++) {
+                parts = buffer.readLine().split(" ");
+                Point c = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+                Point d = new Point(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+                if (a.intersect(b, c, d)) {
+                    result += 1;
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            System.err.println("Application failed: " + e.getMessage());
+            System.exit(1);
+            return -1;
+        }
+    }
 }
 
+
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter pw = new PrintWriter(System.out);
-        int number = 0, result = 0;
-        String[] parts = br.readLine().split(" ");
-        Point a = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-        Point b = new Point(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
-        number = Integer.parseInt(br.readLine());
-        for (int i = 0; i < number; i++) {
-            parts = br.readLine().split(" ");
-            Point c = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-            Point d = new Point(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
-            if (a.intersect(b, c, d)) {
-                result += 1;
-            }
+    public static void main(String[] args) {
+        try {
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+            int number = 0;
+            String[] parts = buffer.readLine().split(" ");
+            Point a = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+            Point b = new Point(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+            number = Integer.parseInt(buffer.readLine());
+            int result = a.finalResult(number, buffer, a, b);
+            System.out.println(result);
+            buffer.close();
+
+        } catch (Exception e) {
+            System.err.println("Application failed: " + e.getMessage());
+            System.exit(1);
         }
-        pw.println(result);
-
-
-        pw.flush();
-        pw.close();
-        br.close();
     }
 }
