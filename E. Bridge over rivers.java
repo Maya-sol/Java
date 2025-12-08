@@ -4,6 +4,11 @@ import java.io.*;
 class Point {
     int x, y;
 
+    Point() {
+        x = 0;
+        y = 0;
+    }
+
     Point(int a, int b) {
         x = a;
         y = b;
@@ -20,7 +25,7 @@ class Point {
         return -1;
     }
 
-    boolean onSegment(Point b, Point c, Point d) {
+    boolean pointsOnSameSegment(Point b, Point c, Point d) {
         if (b.x <= c.x && c.x <= d.x && b.y <= c.y && c.y <= d.y) {
             return true;
         }
@@ -46,31 +51,35 @@ class Point {
         if (or1 != or2 && or3 != or4) {
             return true;
         }
-        if (or1 == 0 && onSegment(a, c, b)) {
+        if (or1 == 0 && pointsOnSameSegment(a, c, b)) {
             return true;
         }
-        if (or2 == 0 && onSegment(a, d, b)) {
+        if (or2 == 0 && pointsOnSameSegment(a, d, b)) {
             return true;
         }
-        if (or3 == 0 && onSegment(c, a, d)) {
+        if (or3 == 0 && pointsOnSameSegment(c, a, d)) {
             return true;
         }
-        if (or4 == 0 && onSegment(c, b, d)) {
+        if (or4 == 0 && pointsOnSameSegment(c, b, d)) {
             return true;
         }
         return false;
     }
 
-    int finalResult(int number, BufferedReader buffer, Point a, Point b) {
+    int finalResult(BufferedReader buffer) {
         try {
+            int number = 0;
+            String[] parts = buffer.readLine().split(" ");
+            Point a = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+            Point b = new Point(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+            number = Integer.parseInt(buffer.readLine());
             int result = 0;
-            String[] parts;
-            for (int i = 0; i < number; i++) {
+            for (int i = 0; i < number; ++i) {
                 parts = buffer.readLine().split(" ");
                 Point c = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
                 Point d = new Point(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
                 if (a.intersect(b, c, d)) {
-                    result += 1;
+                    ++result;
                 }
             }
             return result;
@@ -87,12 +96,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
-            int number = 0;
-            String[] parts = buffer.readLine().split(" ");
-            Point a = new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-            Point b = new Point(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
-            number = Integer.parseInt(buffer.readLine());
-            int result = a.finalResult(number, buffer, a, b);
+            Point a = new Point();
+            int result = a.finalResult(buffer);
             System.out.println(result);
             buffer.close();
 
