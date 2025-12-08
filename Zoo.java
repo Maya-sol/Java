@@ -1,90 +1,6 @@
-import java.util.*;
-import java.io.*;
-
-
-class Supervisor {
-    int id;
-    String name;
-
-    Supervisor(int idNum, String fullName) {
-        id = idNum;
-        name = fullName;
-    }
-}
-
-
-abstract class Animal {
-    int id;
-    double hight;
-    Supervisor supervisor;
-
-    abstract void makeSound();
-}
-
-class Cat extends Animal {
-    Cat(int idNum, double height1, Supervisor supervise) {
-        id = idNum;
-        hight = height1;
-        supervisor = supervise;
-    }
-
-    @Override
-    void makeSound() {
-        System.out.println("Meow");
-    }
-
-}
-
-class Dog extends Animal {
-    Dog(int idNum, double height1, Supervisor supervise) {
-        id = idNum;
-        hight = height1;
-        supervisor = supervise;
-    }
-
-    @Override
-    void makeSound() {
-        System.out.println("Woof");
-    }
-}
-
-class Hippo extends Animal {
-    Hippo(int idNum, double height1, Supervisor supervise) {
-        id = idNum;
-        hight = height1;
-        supervisor = supervise;
-    }
-
-    @Override
-    void makeSound() {
-        System.out.println("Roar");
-    }
-}
-
-class Horse extends Animal {
-    Horse(int idNum, double height1, Supervisor supervise) {
-        id = idNum;
-        hight = height1;
-        supervisor = supervise;
-    }
-
-    @Override
-    void makeSound() {
-        System.out.println("Neigh");
-    }
-}
-
-class Fish extends Animal {
-    Fish(int idNum, double height1, Supervisor supervise) {
-        id = idNum;
-        hight = height1;
-        supervisor = supervise;
-    }
-
-    @Override
-    void makeSound() {
-    }
-}
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 class Zoo {
     Map<Integer, Animal> animals;
@@ -150,9 +66,9 @@ class Zoo {
         System.out.println();
     }
 
-    void GetByHight(double hightCheck) {
+    void GetByHeight(double heightCheck) {
         for (Animal i : animals.values()) {
-            if (i.hight > hightCheck) {
+            if (i.height > heightCheck) {
                 System.out.print(i.id + " ");
             }
         }
@@ -210,11 +126,4 @@ class Zoo {
         observation.add("Supervisor " + id + "was changed");
     }
 
-}
-
-
-public class Main {
-    public static void main(String[] args) {
-        Zoo zoo = new Zoo();
-    }
 }
