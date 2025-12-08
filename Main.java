@@ -4,6 +4,11 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        Zoo zoo = new Zoo();
+        try {
+            Zoo zoo = new Zoo();
+        } catch (Exception e) {
+            System.err.println("Application failed: " + e.getMessage());
+            System.exit(1);
+        }
     }
 }
