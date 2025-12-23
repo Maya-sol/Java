@@ -12,10 +12,12 @@ class TaxiDriver implements Taxi, Runnable {
     int id;
     BlockingQueue<String> addresses = new LinkedBlockingQueue<>();
     volatile boolean running;
+    volatile boolean working;
 
     TaxiDriver(int number) {
         id = number;
         running = true;
+        working = false;
         thread = new Thread(this, "Taxi " + number);
         thread.start();
     }
@@ -28,10 +30,12 @@ class TaxiDriver implements Taxi, Runnable {
                 if (address != null) {
 
                     System.out.println("Taxi " + id + ": fulfilling order to " + address);
+                    working = true;
                     Random random = new Random();
                     int randomNumber = random.nextInt(20) + 1;
                     Thread.sleep(randomNumber * 100);
                     System.out.println("Order to " + address + " is done");
+                    working = false;
 
                 } else {
                     running = false;
@@ -46,12 +50,20 @@ class TaxiDriver implements Taxi, Runnable {
     }
 
     public void placeOrder(String address) {
-        addresses.offer(address);
+        if (running || working) {
+            addresses.offer(address);
+        } else {
+            running = true;
+            thread = new Thread(this, "Taxi " + id);
+            thread.start();
+            addresses.offer(address);
+        }
+
     }
 
 
     public void endMessage() {
-        while (running) ;
+        while (running || working) ;
         this.shutdown();
     }
 
